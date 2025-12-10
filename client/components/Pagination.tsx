@@ -21,6 +21,13 @@ export function Pagination({
 }: PaginationProps) {
    if (totalPages <= 1) return null;
 
+   const goToPage = (page: number | string) => {
+      if (typeof page !== "number") return;
+      const newPage = Math.max(1, Math.min(page, totalPages));
+      if (newPage === currentPage) return;
+      onPageChange(newPage);
+   };
+
    const getPageNumbers = () => {
       const pages: (number | string)[] = [];
       const showEllipsis = totalPages > 7;
@@ -60,24 +67,29 @@ export function Pagination({
          <Button
             variant="outline"
             size="icon"
-            onClick={() => onPageChange(currentPage - 1)}
+            type="button"
+            onClick={() => goToPage(currentPage - 1)}
             disabled={currentPage === 1}
          >
             <ChevronLeft className="h-5 w-5" />
          </Button>
 
          {getPageNumbers().map((page, index) => (
-            <div key={index}>
+            <div key={`${page}-${index}`}>
                {typeof page === "number" ? (
                   <Button
                      variant={page === currentPage ? "default" : "outline"}
-                     onClick={() => onPageChange(page)}
+                     type="button"
+                     onClick={() => goToPage(page)}
                      className="min-w-10"
                   >
                      {page}
                   </Button>
                ) : (
-                  <span className="flex h-10 w-10 items-center justify-center text-muted-foreground">
+                  <span
+                     className="flex h-10 w-10 items-center justify-center text-muted-foreground"
+                     aria-hidden
+                  >
                      {page}
                   </span>
                )}
@@ -87,7 +99,8 @@ export function Pagination({
          <Button
             variant="outline"
             size="icon"
-            onClick={() => onPageChange(currentPage + 1)}
+            type="button"
+            onClick={() => goToPage(currentPage + 1)}
             disabled={currentPage === totalPages}
          >
             <ChevronRight className="h-5 w-5" />

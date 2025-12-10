@@ -42,13 +42,15 @@ export default function Home() {
       fetchPosts();
    }, [fetchPosts]);
 
-   const handleSearch = (query: string) => {
+   const handleSearch = useCallback((query: string) => {
       setSearchQuery(query);
       setCurrentPage(1);
-   };
+   }, []);
 
    const handlePageChange = (page: number) => {
-      setCurrentPage(page);
+      const newPage = Math.max(1, Math.min(page, totalPages));
+      if (newPage === currentPage) return;
+      setCurrentPage(newPage);
       window.scrollTo({ top: 0, behavior: "smooth" });
    };
 

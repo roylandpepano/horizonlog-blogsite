@@ -63,7 +63,10 @@ export function NewPostDialog() {
                </Button>
             </motion.div>
          </DialogTrigger>
-         <DialogContent className="max-h-[90vh] max-w-3xl overflow-y-auto">
+         <DialogContent
+            id="new-post-dialog"
+            className="max-h-[90vh] max-w-3xl overflow-y-auto"
+         >
             <div className="mt-4">
                <PostForm onSubmit={handleSubmit} onCancel={handleCancel} />
             </div>
