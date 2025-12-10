@@ -1,0 +1,31 @@
+# Flask Core
+Flask==3.0.0
+Flask-CORS==4.0.0
+Werkzeug==3.0.1
+
+# Database
+SQLAlchemy==2.0.45
+psycopg2-binary==2.9.11
+Flask-SQLAlchemy==3.1.1
+Flask-Migrate==4.0.5
+
+# Redis Cache
+redis==5.0.1
+Flask-Caching==2.1.0
+
+# Validation
+marshmallow==3.20.1
+Flask-Marshmallow==0.15.0
+marshmallow-sqlalchemy==0.29.0
+
+# Environment Variables
+python-dotenv==1.0.0
+
+# Utilities
+python-dateutil==2.8.2
+
+# Development
+pytest==7.4.3
+pytest-cov==4.1.0
+black==23.12.1
+flake8==6.1.0
