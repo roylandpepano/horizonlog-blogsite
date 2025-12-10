@@ -56,27 +56,37 @@ export default function Home() {
 
    return (
       <div className="container mx-auto px-4 py-8">
-         {/* Header */}
+         {/* Header / Hero */}
          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-8 text-center"
+            className="mb-8 text-center hero"
          >
-            <h1 className="mb-4 text-4xl font-bold">Explore Stories</h1>
-            <p className="text-muted-foreground">
-               Discover amazing blog posts from our community
-            </p>
+            {/* Decorative animated background - purely visual */}
+            <div className="hero__bg" aria-hidden="true">
+               <div className="blob b1" />
+               <div className="blob b2" />
+               <div className="blob b3" />
+            </div>
+
+            <header className="hero-content" role="banner">
+               <h1 className="mb-4 text-4xl font-bold">Explore Stories</h1>
+               <p className="text-muted-foreground">
+                  Discover amazing blog posts from our community
+               </p>
+               {/* Search bar placed inside hero, just below description */}
+               <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.08 }}
+                  className="mt-6 mx-auto max-w-xl"
+               >
+                  <SearchBar onSearch={handleSearch} />
+               </motion.div>
+            </header>
          </motion.div>
 
-         {/* Search Bar */}
-         <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="mb-8"
-         >
-            <SearchBar onSearch={handleSearch} />
-         </motion.div>
+         {/* Search Bar moved into hero */}
 
          {/* Posts Grid */}
          <PostGrid posts={posts} isLoading={isLoading} />
