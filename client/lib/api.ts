@@ -70,45 +70,79 @@ class ApiClient {
       if (params?.search) searchParams.set("search", params.search);
 
       const query = searchParams.toString();
-      return this.request<PaginatedResponse<Post>>(
-         `/api/posts${query ? `?${query}` : ""}`
-      );
+      const resp = await this.request<{
+         success: boolean;
+         data: Post[];
+         pagination: {
+            page: number;
+            per_page: number;
+            total: number;
+            pages: number;
+            has_next: boolean;
+            has_prev: boolean;
+         };
+      }>(`/api/posts${query ? `?${query}` : ""}`);
+
+      return {
+         data: resp.data,
+         total: resp.pagination.total,
+         page: resp.pagination.page,
+         per_page: resp.pagination.per_page,
+         total_pages: resp.pagination.pages,
+      } as PaginatedResponse<Post>;
    }
 
    /**
     * Get a single post by ID
     */
    async getPost(id: number): Promise<Post> {
-      return this.request<Post>(`/api/posts/${id}`);
+      const resp = await this.request<{ success: boolean; data: Post }>(
+         `/api/posts/${id}`
+      );
+      return resp.data;
    }
 
    /**
     * Create a new post
     */
    async createPost(data: CreatePostInput): Promise<Post> {
-      return this.request<Post>("/api/posts", {
+      const resp = await this.request<{
+         success: boolean;
+         message: string;
+         data: Post;
+      }>("/api/posts", {
          method: "POST",
          body: JSON.stringify(data),
       });
+      return resp.data;
    }
 
    /**
     * Update an existing post
     */
    async updatePost(id: number, data: UpdatePostInput): Promise<Post> {
-      return this.request<Post>(`/api/posts/${id}`, {
+      const resp = await this.request<{
+         success: boolean;
+         message: string;
+         data: Post;
+      }>(`/api/posts/${id}`, {
          method: "PUT",
          body: JSON.stringify(data),
       });
+      return resp.data;
    }
 
    /**
     * Delete a post
     */
    async deletePost(id: number): Promise<{ message: string }> {
-      return this.request<{ message: string }>(`/api/posts/${id}`, {
-         method: "DELETE",
-      });
+      const resp = await this.request<{ success: boolean; message: string }>(
+         `/api/posts/${id}`,
+         {
+            method: "DELETE",
+         }
+      );
+      return { message: resp.message } as { message: string };
    }
 
    // ==================== COMMENTS API ====================
@@ -120,7 +154,7 @@ class ApiClient {
       const response = await this.request<{
          success: boolean;
          data: Comment[];
-         pagination: any;
+         pagination: number;
       }>(`/api/comments/post/${postId}`);
       return response.data;
    }
