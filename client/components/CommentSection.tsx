@@ -4,7 +4,7 @@
  */
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Star, User, Calendar, Trash2 } from "lucide-react";
 import type { Comment, CreateCommentInput } from "@/lib/types";
@@ -55,6 +55,7 @@ export function CommentSection({
    const formatDate = (dateString: string) => {
       try {
          return new Date(dateString).toLocaleString("en-US", {
+            timeZone: "Asia/Manila",
             year: "numeric",
             month: "short",
             day: "numeric",
@@ -65,6 +66,20 @@ export function CommentSection({
          return "Invalid Date";
       }
    };
+
+   // sort comments newest-first so newly added comments appear at the top
+   const sortedComments = useMemo(() => {
+      return [...comments].sort((a, b) => {
+         try {
+            return (
+               new Date(b.created_at).getTime() -
+               new Date(a.created_at).getTime()
+            );
+         } catch {
+            return 0;
+         }
+      });
+   }, [comments]);
 
    return (
       <div className="space-y-6">
@@ -136,7 +151,7 @@ export function CommentSection({
                Comments ({comments.length})
             </h3>
             <AnimatePresence>
-               {comments.map((comment, index) => (
+               {sortedComments.map((comment, index) => (
                   <motion.div
                      key={comment.id}
                      initial={{ opacity: 0, y: 20 }}
@@ -145,7 +160,7 @@ export function CommentSection({
                      transition={{ delay: index * 0.05 }}
                   >
                      <Card>
-                        <CardContent className="pt-6">
+                        <CardContent>
                            <div className="mb-2 flex items-start justify-between">
                               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                                  <div className="flex items-center gap-1">

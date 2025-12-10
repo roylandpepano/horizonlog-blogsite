@@ -3,7 +3,7 @@ Database models for the Blogsite application.
 Includes Post and Comment models with One-to-Many relationship.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from flask_sqlalchemy import SQLAlchemy
 
 # Create db instance here - will be used by both models and app
@@ -55,8 +55,8 @@ class Post(db.Model):
             'title': self.title,
             'content': self.content,
             'author': self.author,
-            'created_at': self.created_at.isoformat() if self.created_at else None,
-            'updated_at': self.updated_at.isoformat() if self.updated_at else None,
+            'created_at': self.created_at.replace(tzinfo=timezone.utc).isoformat() if self.created_at else None,
+            'updated_at': self.updated_at.replace(tzinfo=timezone.utc).isoformat() if self.updated_at else None,
             'comment_count': self.comments.count()
         }
         
@@ -112,8 +112,8 @@ class Comment(db.Model):
             'author': self.author,
             'content': self.content,
             'rating': self.rating,
-            'created_at': self.created_at.isoformat() if self.created_at else None,
-            'updated_at': self.updated_at.isoformat() if self.updated_at else None
+            'created_at': self.created_at.replace(tzinfo=timezone.utc).isoformat() if self.created_at else None,
+            'updated_at': self.updated_at.replace(tzinfo=timezone.utc).isoformat() if self.updated_at else None
         }
         
         if include_post:
