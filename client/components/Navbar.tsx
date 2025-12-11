@@ -9,6 +9,7 @@ import { motion } from "motion/react";
 import { Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NewPostDialog } from "@/components/NewPostDialog";
+import Image from "next/image";
 
 export function Navbar() {
    return (
@@ -19,11 +20,22 @@ export function Navbar() {
       >
          <div className="container mx-auto flex h-16 items-center justify-between px-4">
             <Link href="/" className="flex items-center gap-2">
+               <Image
+                  src="/logo.png"
+                  width={64}
+                  height={64}
+                  alt="HorizonLog logo"
+               />
                <motion.div
                   whileHover={{ scale: 1.05 }}
-                  className="text-2xl font-bold text-blue-600 dark:text-blue-400"
+                  className="flex flex-col leading-none"
                >
-                  BlogSite
+                  <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                     HorizonLog
+                  </span>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">
+                     A Blog Site by RoylandVP
+                  </span>
                </motion.div>
             </Link>
 

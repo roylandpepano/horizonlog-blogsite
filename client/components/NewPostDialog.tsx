@@ -13,14 +13,12 @@ import type { CreatePostInput, UpdatePostInput } from "@/lib/types";
 import {
    Dialog,
    DialogContent,
-   DialogHeader,
    DialogTitle,
    DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { PenSquare } from "lucide-react";
 import { motion } from "motion/react";
-import { DialogDescription } from "@radix-ui/react-dialog";
 
 export function NewPostDialog() {
    const router = useRouter();

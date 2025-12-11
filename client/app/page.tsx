@@ -12,6 +12,7 @@ import { SearchBar } from "@/components/SearchBar";
 import { Pagination } from "@/components/Pagination";
 import { api } from "@/lib/api";
 import type { Post, PaginatedResponse } from "@/lib/types";
+import Link from "next/link";
 
 export default function Home() {
    const [posts, setPosts] = useState<Post[]>([]);
@@ -103,6 +104,13 @@ export default function Home() {
                />
             </motion.div>
          )}
+
+         {/* Footer */}
+         <footer className="mt-8 text-center text-sm text-muted-foreground">
+            &copy; {new Date().getFullYear()}{" "}
+            <Link href="https://roylandvp.com/">RoylandVP</Link>. All rights
+            reserved.
+         </footer>
       </div>
    );
 }

@@ -17,6 +17,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
    title: "BlogSite - Share Your Stories",
    description: "A modern blog platform for sharing your thoughts and stories",
+   icons: {
+      icon: "/favicon.svg",
+   },
 };
 
 export default function RootLayout({
