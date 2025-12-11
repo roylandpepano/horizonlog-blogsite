@@ -29,7 +29,7 @@ A simple blog application with a Next.js frontend and a Flask REST API backend. 
 -  Create, read, update, delete posts
 -  Create, read, update, delete comments (with optional rating)
 -  Pagination and search for posts
--  Caching (SimpleCache used by default; Redis supported via config)
+-  Caching (Redis used when running via Docker; fallback configurable via `server/config.py`)
 -  Database migrations (Alembic/Flask-Migrate)
 -  Development seeder to populate sample data
 

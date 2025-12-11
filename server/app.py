@@ -36,8 +36,11 @@ def create_app(config_name=None):
     # Initialize extensions with app
     db.init_app(app)
     migrate.init_app(app, db)
+    # Use Redis for caching in Docker environment. `REDIS_URL` is defined
+    # in `server/config.py` (can be overridden with env vars).
     cache.init_app(app, config={
-        'CACHE_TYPE': 'SimpleCache',
+        'CACHE_TYPE': 'RedisCache',
+        'CACHE_REDIS_URL': app.config.get('REDIS_URL'),
         'CACHE_DEFAULT_TIMEOUT': app.config['CACHE_DEFAULT_TIMEOUT']
     })
     
