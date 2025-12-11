@@ -67,7 +67,8 @@ export function NewPostDialog() {
             id="new-post-dialog"
             className="max-h-[90vh] max-w-3xl overflow-y-auto"
          >
-            <div className="mt-4">
+            <DialogTitle></DialogTitle>
+            <div>
                <PostForm onSubmit={handleSubmit} onCancel={handleCancel} />
             </div>
          </DialogContent>

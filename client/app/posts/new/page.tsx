@@ -8,14 +8,14 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { PostForm } from "@/components/PostForm";
 import { api } from "@/lib/api";
-import type { CreatePostInput } from "@/lib/types";
+import type { CreatePostInput, UpdatePostInput } from "@/lib/types";
 
 export default function NewPostPage() {
    const router = useRouter();
 
-   const handleSubmit = async (data: CreatePostInput) => {
+   const handleSubmit = async (data: CreatePostInput | UpdatePostInput) => {
       try {
-         const post = await api.createPost(data);
+         const post = await api.createPost(data as CreatePostInput);
          toast.success("Post created successfully!");
          router.push(`/posts/${post.id}`);
       } catch (error) {

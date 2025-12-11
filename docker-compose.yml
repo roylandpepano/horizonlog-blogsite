@@ -1,0 +1,57 @@
+version: "3.8"
+
+services:
+   db:
+      image: postgres:15
+      restart: unless-stopped
+      environment:
+         POSTGRES_USER: bloguser
+         POSTGRES_PASSWORD: blogpassword
+         POSTGRES_DB: blogsite_db
+      volumes:
+         - db-data:/var/lib/postgresql/data
+      ports:
+         - "5432:5432"
+
+   redis:
+      image: redis:7
+      restart: unless-stopped
+      ports:
+         - "6379:6379"
+
+   server:
+      build:
+         context: ./server
+         dockerfile: Dockerfile
+      restart: unless-stopped
+      env_file:
+         - ./server/.env
+      environment:
+         POSTGRES_HOST: db
+         POSTGRES_PORT: 5432
+         POSTGRES_USER: bloguser
+         POSTGRES_PASSWORD: blogpassword
+         POSTGRES_DB: blogsite_db
+         REDIS_HOST: redis
+         REDIS_PORT: 6379
+         CORS_ORIGINS: http://localhost:3000
+      ports:
+         - "5000:5000"
+      depends_on:
+         - db
+         - redis
+
+   client:
+      build:
+         context: ./client
+         dockerfile: Dockerfile
+      restart: unless-stopped
+      environment:
+         NODE_ENV: production
+      ports:
+         - "3000:3000"
+      depends_on:
+         - server
+
+volumes:
+   db-data:
