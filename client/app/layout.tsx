@@ -15,10 +15,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-   title: "BlogSite - Share Your Stories",
+   title: "HorizonLog - Share Your Stories",
    description: "A modern blog platform for sharing your thoughts and stories",
    icons: {
-      icon: "/favicon.svg",
+      icon: "/favicon.ico",
    },
 };
 

@@ -211,7 +211,7 @@ export default function PostPage({
                         animate={{ scale: 1 }}
                         onClick={(e) => e.stopPropagation()}
                      >
-                        <CardContent className="p-6">
+                        <CardContent>
                            <h3 className="mb-4 text-xl font-bold">
                               Delete Post?
                            </h3>
