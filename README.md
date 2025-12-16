@@ -1,4 +1,4 @@
-# HorizonLog - Blogsite (Exam 1)
+# HorizonLog - Blogsite
 
 A simple blog application with a Next.js frontend and a Flask REST API backend. The project demonstrates CRUD operations for posts and comments, pagination, search, caching, database migrations, and seeding for development.
 
